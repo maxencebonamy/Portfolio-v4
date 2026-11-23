@@ -4,7 +4,7 @@ My developer portfolio, fourth version.
 
 A single-page website that introduces me, lists the projects I have built with a video preview of each, shows the technologies I use and gives ways to contact me. It is written for recruiters and clients, in French and English, with a light and a dark theme.
 
-![Home section of the portfolio](docs/hero.png)
+![Home section of the portfolio](assets/hero.png)
 
 ## Table of contents
 
