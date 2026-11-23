@@ -13,7 +13,7 @@ const LangToggle = ({ lang, toggleLang, className }: LangToggleProps) => {
         if (isRotating) return
         
         const textElements = document.getElementsByClassName("text-transition") as HTMLCollectionOf<HTMLElement>
-        for (let item of textElements) {
+        for (const item of textElements) {
             item.style.opacity = "0"
         }
 
@@ -21,7 +21,7 @@ const LangToggle = ({ lang, toggleLang, className }: LangToggleProps) => {
 
         window.setTimeout(() => {
             toggleLang()
-            for (let item of textElements) {
+            for (const item of textElements) {
                 item.style.opacity = "1"
             }
         }, 500)

@@ -20,8 +20,13 @@ const Skills = ({ lang, appRef }: SkillsProps) => {
     const [skillName, setSkillName] = useState(langTexts[lang].skills.names[skills[skill].name])
     const [skillDescription, setSkillDescription] = useState(langTexts[lang].skills.descriptions[skills[skill].name])
 
+    const skillRef = useRef(skill)
+    skillRef.current = skill
+    const langRef = useRef(lang)
+    langRef.current = lang
+
     useEffect(() => {
-        setSkillDescription(langTexts[lang].skills.descriptions[skills[skill].name])
+        setSkillDescription(langTexts[lang].skills.descriptions[skills[skillRef.current].name])
     }, [lang])
 
     const setSkillWithTransition = (index: number) => {
@@ -45,7 +50,10 @@ const Skills = ({ lang, appRef }: SkillsProps) => {
         }
     }
 
-    let getSkillPosition = (index: number) => ({
+    const nextSkillRef = useRef(nextSkill)
+    nextSkillRef.current = nextSkill
+
+    const getSkillPosition = (index: number) => ({
         top: `${
             (1 - Math.sin(((index - skill) / nbSkills) * 2 * Math.PI)) * 9.5 +
             0.75
@@ -57,22 +65,9 @@ const Skills = ({ lang, appRef }: SkillsProps) => {
     })
 
     useEffect(() => {
-        getSkillPosition = (index: number) => ({
-            top: `${
-                (1 - Math.sin(((index - skill) / nbSkills) * 2 * Math.PI)) *
-                    9.5 +
-                0.75
-            }rem`,
-            left: `${
-                (1 + Math.cos(((index - skill) / nbSkills) * 2 * Math.PI)) *
-                    9.5 +
-                0.75
-            }rem`,
-        })
-
         const firstTimeout = setTimeout(() => {
-            setSkillName(langTexts[lang].skills.names[skills[skill].name])
-            setSkillDescription(langTexts[lang].skills.descriptions[skills[skill].name])
+            setSkillName(langTexts[langRef.current].skills.names[skills[skill].name])
+            setSkillDescription(langTexts[langRef.current].skills.descriptions[skills[skill].name])
             if (textComponent.current) textComponent.current.style.opacity = "1"
         }, 250)
 
@@ -88,7 +83,7 @@ const Skills = ({ lang, appRef }: SkillsProps) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            nextSkill()
+            nextSkillRef.current()
         }, 7500)
         return () => clearInterval(interval)
     }, [canTurn])

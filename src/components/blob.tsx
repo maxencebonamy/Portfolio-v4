@@ -15,12 +15,12 @@ const CircleBlob = ({size, className}: CircleBlobProps) => {
     const [style, setStyle] = useState({})
 
     useEffect(() => {
-        setStyle({
-            ...style,
+        setStyle(previous => ({
+            ...previous,
             width: `${size}rem`,
             height: `${size}rem`,
             boxShadow: `0 0 ${size / 4}rem ${size / 4}rem #FF6A69`
-        })
+        }))
     }, [size])
 
     return (
@@ -41,7 +41,7 @@ const Blob = ({size, className}: BlobProps) => {
         return () => {
             clearInterval(interval)
         }
-    }, [])
+    }, [size])
 
     return (
         <div className={`${className ?? ""} blob`}>
